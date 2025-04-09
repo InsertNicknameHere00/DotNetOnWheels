@@ -5,7 +5,7 @@
 namespace CarManagerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class UpdateToModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,13 @@ namespace CarManagerAPI.Migrations
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EngineType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HPamount = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    mileage = table.Column<int>(type: "int", nullable: false),
+                    year = table.Column<int>(type: "int", nullable: false),
+                    features = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    owners = table.Column<int>(type: "int", nullable: false),
+                    image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManagerAPI.Migrations
 {
     [DbContext(typeof(CarDbContext))]
-    [Migration("20241103182225_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250409160425_UpdateToModel")]
+    partial class UpdateToModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,27 @@ namespace CarManagerAPI.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("features")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("mileage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("owners")
+                        .HasColumnType("int");
+
+                    b.Property<int>("year")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

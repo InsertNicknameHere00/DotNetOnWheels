@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICarRepository,CarRepository>();
-builder.Services.AddScoped<CarController>();
+builder.Services.AddDbContext<CarDbContext>();
 
 var app = builder.Build();
 

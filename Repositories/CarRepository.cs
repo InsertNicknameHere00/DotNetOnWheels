@@ -1,6 +1,5 @@
 ﻿using CarManagerAPI.Data;
 using CarManagerAPI.Entities;
-using CarManagerAPI.Migrations;
 using CarManagerAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +53,13 @@ namespace CarManagerAPI.Repositories
                 cartemp.Price = car.Price;
                 cartemp.EngineType = car.EngineType;
                 cartemp.HPamount = car.HPamount;
+                cartemp.features = car.features;
+                cartemp.color = car.color;
+                cartemp.mileage = car.mileage;
+                cartemp.owners = car.owners;
+                cartemp.year = car.year;
+                cartemp.image = car.image;
+
                 _context.Cars.Update(cartemp);
                 await _context.SaveChangesAsync();
                 return true;
