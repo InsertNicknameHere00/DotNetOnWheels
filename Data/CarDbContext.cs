@@ -7,6 +7,7 @@ namespace CarManagerAPI.Data
     {
         private readonly IConfiguration _configuration;
         public DbSet<Car> Cars { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public CarDbContext(DbContextOptions<CarDbContext> options,IConfiguration configuration)
             :base (options)
@@ -16,7 +17,7 @@ namespace CarManagerAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CarAPIDB"));
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("LibraryContext"));
         }
     }
 }

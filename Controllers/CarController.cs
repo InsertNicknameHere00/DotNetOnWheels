@@ -11,9 +11,13 @@ namespace CarManagerAPI.Controllers
     public class CarController : ControllerBase
     {
         private readonly CarRepository _repository;
-        public CarController(CarRepository repository)
+        private readonly IHttpContextAccessor _session;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public CarController(CarRepository repository, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment webHostEnvironment)
         {
             _repository = repository;
+            _session = httpContextAccessor;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]

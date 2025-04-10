@@ -195,22 +195,16 @@ namespace CarManagerAPI.Repositories
                 response.EnsureSuccessStatusCode();
 
                 var json = await response.Content.ReadAsStringAsync();
-                var cars = JsonSerializer.Deserialize<List<Car>>(json);
-                 await _context.AddAsync(cars);
+                var carsTemp = JsonSerializer.Deserialize<List<Car>>(json);
+                 await _context.AddAsync(carsTemp);
                 _context.SaveChanges();
-                foreach (var car in cars)
-                {
-                    Console.WriteLine($"{car.year} {car.Brand} {car.Model}");
-                }
-
                 return await GetAllCarsAsync();
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error: {e.Message}");
             }
-            var carlist= await GetAllCarsAsync();
-            return carlist;
+            return await GetAllCarsAsync();
         }
 
     }
