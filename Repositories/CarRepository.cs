@@ -3,8 +3,7 @@ using CarManagerAPI.Entities;
 using CarManagerAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
-using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace CarManagerAPI.Repositories
 {
@@ -23,12 +22,18 @@ namespace CarManagerAPI.Repositories
             if (tempCar == null)
             {
                 Car newcar = new Car();
-                newcar.Name = car.Name;
                 newcar.Model = car.Model;
                 newcar.Brand = car.Brand;
                 newcar.Price = car.Price;
+                newcar.Transmission = car.Transmission;
                 newcar.HPamount = car.HPamount;
                 newcar.EngineType = car.EngineType;
+                newcar.Owners = car.Owners;
+                newcar.Year = car.Year;
+                newcar.Id = car.Id;
+                newcar.Features = car.Features;
+                newcar.color = car.color;
+                newcar.Image = car.Image;
                 _context.Cars.Add(newcar);
                 await _context.SaveChangesAsync();
                 return newcar;
@@ -47,18 +52,18 @@ namespace CarManagerAPI.Repositories
             var cartemp = await _context.Cars.FindAsync(id);
             if (cartemp != null)
             {
-                cartemp.Name = car.Name;
                 cartemp.Model = car.Model;
                 cartemp.Brand = car.Brand;
                 cartemp.Price = car.Price;
                 cartemp.EngineType = car.EngineType;
                 cartemp.HPamount = car.HPamount;
-                cartemp.features = car.features;
+                cartemp.Transmission = car.Transmission;
+                cartemp.Features = car.Features;
                 cartemp.color = car.color;
-                cartemp.mileage = car.mileage;
-                cartemp.owners = car.owners;
-                cartemp.year = car.year;
-                cartemp.image = car.image;
+                cartemp.Mileage = car.Mileage;
+                cartemp.Owners = car.Owners;
+                cartemp.Year = car.Year;
+                cartemp.Image = car.Image;
 
                 _context.Cars.Update(cartemp);
                 await _context.SaveChangesAsync();
@@ -111,7 +116,8 @@ namespace CarManagerAPI.Repositories
             return null;
         }
 
-        public async Task<List<Car>> GetCarsByEngineTypeAsync(string engine) {
+        public async Task<List<Car>> GetCarsByEngineTypeAsync(string engine)
+        {
             var cartemp = await _context.Cars.ToListAsync();
             if (cartemp != null)
             {
@@ -150,11 +156,14 @@ namespace CarManagerAPI.Repositories
             return false;
         }
 
-        public async Task<string> CompareCarsHP(int firstcarID, int secondcarID) {
-        var cartemp1= await _context.Cars.FindAsync(firstcarID);
-            var cartemp2= await _context.Cars.FindAsync(secondcarID);
-            if (cartemp1 != null && cartemp2 != null) {
-                if (cartemp1.HPamount > cartemp2.HPamount) {
+        public async Task<string> CompareCarsHP(int firstcarID, int secondcarID)
+        {
+            var cartemp1 = await _context.Cars.FindAsync(firstcarID);
+            var cartemp2 = await _context.Cars.FindAsync(secondcarID);
+            if (cartemp1 != null && cartemp2 != null)
+            {
+                if (cartemp1.HPamount > cartemp2.HPamount)
+                {
                     return cartemp1.Model + " has more horsepower than " + cartemp2.Model;
                 }
                 else
@@ -183,27 +192,45 @@ namespace CarManagerAPI.Repositories
             return "failed";
         }
 
-        public async Task<List<Car>> FetchDummyData() {
-
-            string url = "https://freetestapi.com/api/v1/cars";
-
-            using HttpClient client = new HttpClient();
-
+        public async Task<List<Car>> FetchDummyData()
+        {
+			HttpClient client = new HttpClient();
+			var request = await client.GetAsync("https://freetestapi.com/api/v1/cars");
             try
             {
-                var response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
+					var carsTemp = await request.Content.ReadFromJsonAsync<List<CarDTO>>(); 
 
-                var json = await response.Content.ReadAsStringAsync();
-                var carsTemp = JsonSerializer.Deserialize<List<Car>>(json);
-                 await _context.AddAsync(carsTemp);
-                _context.SaveChanges();
+                if (carsTemp != null)
+                {
+                    var cars = carsTemp.Select(dto => new Car
+                    {
+                        Id = dto.Id,
+                        Brand = dto.make,
+                        Model = dto.model,
+                        EngineType = dto.engine,
+                        HPamount = dto.horsepower,
+                        Transmission = dto.transmission,
+                        Owners = dto.owners,
+                        Price = dto.price,
+                        color = dto.color,
+                        Mileage = dto.mileage,
+                        Year = dto.year,
+                        Features = dto.features,
+
+
+                    }).ToList();
+
+                    await _context.AddRangeAsync(cars);
+                    await _context.SaveChangesAsync();
+                }
+
                 return await GetAllCarsAsync();
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error: {e.Message}");
+				System.Diagnostics.Debug.WriteLine($"Error: {e.Message}");
             }
+
             return await GetAllCarsAsync();
         }
 

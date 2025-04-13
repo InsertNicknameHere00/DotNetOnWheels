@@ -17,5 +17,7 @@ namespace CarManagerAPI.Repositories.Interfaces
         Task<string> CompareCarsHP(int firstcarID, int secondcarID);
 
 		Task<string> CompareCarsPrice(int firstcarID, int secondcarID);
+
+        Task<List<Car>> FetchDummyData();
 		}
     }

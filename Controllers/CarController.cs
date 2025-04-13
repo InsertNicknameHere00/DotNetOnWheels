@@ -22,28 +22,32 @@ namespace CarManagerAPI.Controllers
 
         [HttpGet("GetCars")]
         public async Task<IActionResult> Index(CarsVM tempModel)
-        {            
-			var cartemp = await _repository.GetAllCarsAsync();
-
-            List<CarsVM> list = cartemp.Select(x =>
+        {
+            var tempData = await _repository.FetchDummyData();
+            var cartemp = await _repository.GetAllCarsAsync();
+            if (cartemp != null)
             {
-                return new CarsVM
+                List<CarsVM> list = cartemp.Select(x =>
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Brand = x.Brand,
-                    Model = x.Model,
-                    EngineType = x.EngineType,
-                    HPamount = x.HPamount,
-                    Price = x.Price,
-                    color = x.color,
-                    mileage = x.mileage,
-                    year = x.year
-                };
-            }).ToList();
+                    return new CarsVM
+                    {
+                        Id = x.Id,
+                        Brand = x.Brand,
+                        Model = x.Model,
+                        EngineType = x.EngineType,
+                        HPamount = x.HPamount,
+                        Transmission = x.Transmission,
+                        Price = x.Price,
+                        color = x.color,
+                        Mileage = x.Mileage,
+                        Year = x.Year
+                    };
+                }).ToList();
 
-            return View(list);
-            //return View(cartemp);
+                return View(list);
+                //return View(cartemp);
+            }
+            return View();
         }
 
         [HttpGet("GetByID")]

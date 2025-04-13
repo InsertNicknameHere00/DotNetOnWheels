@@ -9,8 +9,6 @@ namespace CarManagerAPI.Entities
         [Required]
         public string Brand { get; set; }
         [Required]
-        public string Name { get; set; }
-        [Required]
         public string Model { get; set; }
         [Required]
         public string EngineType { get; set; }
@@ -21,12 +19,14 @@ namespace CarManagerAPI.Entities
         [Required]
         public string color { get; set; }
         [Required]
-        public int mileage { get; set; }
+        public int Mileage { get; set; }
         [Required]
-        public int year { get; set; }
+        public int Year { get; set; }
         [Required]
-        public List<string> features { get; set; }
-        public int owners { get; set; }
-        public string image { get; set; }
-    }
+		public string[] Features { get; set; }
+		public int Owners { get; set; }
+        public string Image { get; set; }
+        [Required]
+		public string Transmission { get; set; }
+	}
 }
