@@ -1,5 +1,6 @@
 ﻿using CarManagerAPI.Entities;
 using CarManagerAPI.Repositories;
+using CarManagerAPI.ViewModels.Cars;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -8,7 +9,7 @@ namespace CarManagerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarController : ControllerBase
+    public class CarController : Controller
     {
         private readonly CarRepository _repository;
         private readonly IHttpContextAccessor _session;
@@ -21,10 +22,29 @@ namespace CarManagerAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCars()
-        {
-            var cartemp = await _repository.GetAllCarsAsync();
-            return Ok(cartemp);
+        public async Task<IActionResult> Index(IndexVM model)
+        {            
+			var cartemp = await _repository.GetAllCarsAsync();
+
+            List<IndexVM> list = cartemp.Select(x =>
+            {
+                return new IndexVM
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Brand = x.Brand,
+                    Model = x.Model,
+                    EngineType = x.EngineType,
+                    HPamount = x.HPamount,
+                    Price = x.Price,
+                    color = x.color,
+                    mileage = x.mileage,
+                    year = x.year
+                };
+            }).ToList();
+
+            return View(list);
+            //return View(cartemp);
         }
 
         [HttpGet("GetByID")]

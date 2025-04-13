@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManagerAPI.Migrations
 {
     [DbContext(typeof(CarDbContext))]
-    [Migration("20250410061003_UpdateLogic")]
-    partial class UpdateLogic
+    [Migration("20250413142050_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

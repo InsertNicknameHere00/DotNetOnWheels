@@ -5,7 +5,7 @@
 namespace CarManagerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateLogic : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
