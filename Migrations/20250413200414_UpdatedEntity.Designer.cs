@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManagerAPI.Migrations
 {
     [DbContext(typeof(CarDbContext))]
-    [Migration("20250413184937_UpdateEntities")]
-    partial class UpdateEntities
+    [Migration("20250413200414_UpdatedEntity")]
+    partial class UpdatedEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,6 @@ namespace CarManagerAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Mileage")

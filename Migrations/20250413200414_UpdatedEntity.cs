@@ -5,7 +5,7 @@
 namespace CarManagerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateEntities : Migration
+    public partial class UpdatedEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,7 @@ namespace CarManagerAPI.Migrations
                     Year = table.Column<int>(type: "int", nullable: false),
                     Features = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Owners = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Transmission = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

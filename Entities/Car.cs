@@ -25,7 +25,7 @@ namespace CarManagerAPI.Entities
         [Required]
 		public string[] Features { get; set; }
 		public int Owners { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
         [Required]
 		public string Transmission { get; set; }
 	}

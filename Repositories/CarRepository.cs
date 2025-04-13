@@ -204,7 +204,6 @@ namespace CarManagerAPI.Repositories
                 {
                     var cars = carsTemp.Select(dto => new Car
                     {
-                        Id = dto.Id,
                         Brand = dto.make,
                         Model = dto.model,
                         EngineType = dto.engine,
@@ -220,7 +219,7 @@ namespace CarManagerAPI.Repositories
 
                     }).ToList();
 
-                    await _context.AddRangeAsync(cars);
+                    await _context.Cars.AddRangeAsync(cars);
                     await _context.SaveChangesAsync();
                 }
 
