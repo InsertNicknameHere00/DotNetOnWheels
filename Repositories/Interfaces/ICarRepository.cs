@@ -14,5 +14,8 @@ namespace CarManagerAPI.Repositories.Interfaces
         Task <Car> AddCarAsync(Car car);
         Task<bool> UpdateCarAsync(int id, Car car);
         Task<bool> DeleteCarAsync(int id);
-        }
+        Task<string> CompareCarsHP(int firstcarID, int secondcarID);
+
+		Task<string> CompareCarsPrice(int firstcarID, int secondcarID);
+		}
     }

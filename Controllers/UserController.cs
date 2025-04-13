@@ -5,8 +5,6 @@ using Microsoft.Identity.Client.Extensions.Msal;
 
 namespace CarManagerAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class UserController : Controller
     {
         private readonly UserRepository _repository;

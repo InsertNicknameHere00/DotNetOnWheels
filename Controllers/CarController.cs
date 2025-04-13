@@ -1,5 +1,6 @@
 ﻿using CarManagerAPI.Entities;
 using CarManagerAPI.Repositories;
+using CarManagerAPI.Repositories.Interfaces;
 using CarManagerAPI.ViewModels.Cars;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,28 +8,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarManagerAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class CarController : Controller
     {
-        private readonly CarRepository _repository;
+        private readonly ICarRepository _repository;
         private readonly IHttpContextAccessor _session;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public CarController(CarRepository repository, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment webHostEnvironment)
+        public CarController(ICarRepository repository, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment webHostEnvironment)
         {
             _repository = repository;
             _session = httpContextAccessor;
             _webHostEnvironment = webHostEnvironment;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(IndexVM model)
+        [HttpGet("GetCars")]
+        public async Task<IActionResult> Index(CarsVM tempModel)
         {            
 			var cartemp = await _repository.GetAllCarsAsync();
 
-            List<IndexVM> list = cartemp.Select(x =>
+            List<CarsVM> list = cartemp.Select(x =>
             {
-                return new IndexVM
+                return new CarsVM
                 {
                     Id = x.Id,
                     Name = x.Name,

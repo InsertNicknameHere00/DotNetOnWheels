@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICarRepository,CarRepository>();
 builder.Services.AddDbContext<CarDbContext>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

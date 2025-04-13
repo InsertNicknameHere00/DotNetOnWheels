@@ -1,13 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
 	<head>
-
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - CarManagerAPI</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	</head>
 	<body>
 		<nav>
 			<ul>
 				<li><a href="/Home/Index">Home</a></li>
-				<li><a asp-controller="Car" asp-action="Index" href="/Car">Cars</a></li>
+			<li>
+				<a asp-area="" asp-controller="Car" asp-action="Index">Cars</a>
+				</li>
 				<li><a>Users</a></li>
 			</ul>
 		</nav>

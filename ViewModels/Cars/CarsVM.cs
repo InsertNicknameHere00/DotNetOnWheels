@@ -1,9 +1,6 @@
 ﻿namespace CarManagerAPI.ViewModels.Cars	
 {
-	using CarManagerAPI.Entities;
-	using System.ComponentModel.DataAnnotations;
-
-	public class IndexVM
+	public class CarsVM
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

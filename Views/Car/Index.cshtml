@@ -1,5 +1,5 @@
 ﻿@using CarManagerAPI.ViewModels.Cars;
-@model List<IndexVM>;
+@model List<CarsVM>;
 
 <table>
 	<tr>
@@ -14,7 +14,8 @@
 		<td>Mileage</td>
 		<td>Year</td>
 	</tr>
-	@foreach(var car in Model){
+	@foreach (var car in Model)
+	{
 		<tr>
 			<td>@car.Id</td>
 			<td>@car.Name</td>
